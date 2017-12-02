@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Estabelecimento implements Serializable{
 
@@ -20,6 +22,7 @@ public class Estabelecimento implements Serializable{
 	private String nome;
 	private String email;
 	
+	@JsonManagedReference
 	@ManyToMany(mappedBy="estabelecimentos")
 	private List<Produto> produtos = new ArrayList<>();
 	
