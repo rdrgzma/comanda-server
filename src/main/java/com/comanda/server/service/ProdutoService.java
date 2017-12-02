@@ -1,5 +1,7 @@
 package com.comanda.server.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,10 @@ public class ProdutoService {
 	
 	public Produto buscarPorId(Integer id) {
 		return produtoRepository.findOne(id);
+	}
+	
+	public List<Produto> buscarTodos(){
+		return produtoRepository.findAll();		
 	}
 
 }
