@@ -16,13 +16,13 @@ public class Produto implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private String nome;
 	private Double preco;
 	
 //	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 
-	public Produto(int id, String nome, Double preco) {
+	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -37,7 +37,7 @@ public class Produto implements Serializable{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -67,8 +67,8 @@ public class Produto implements Serializable{
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
+		final Integer prime = 31;
+		Integer result = 1;
 		result = prime * result + id;
 		return result;
 	}
