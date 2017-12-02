@@ -31,7 +31,7 @@ public class ComandaServerApplication implements CommandLineRunner{
 		Estabelecimento est1 = new Estabelecimento("Buteco 1", "bureco1@email");
 		Estabelecimento est2 = new Estabelecimento("Buteco 2", "bureco2@email");
 		
-		estabelecimentoRepository.save(Arrays.asList(est1,est2));
+		
 		
 		Produto prod1 = new Produto("Cerveja", 15.0);
 		Produto prod2 = new Produto("Refrigerente", 10.0);
@@ -40,6 +40,17 @@ public class ComandaServerApplication implements CommandLineRunner{
 		Produto prod4 = new Produto("Água", 10.0);
 		Produto prod5 = new Produto("Xis-Salada", 20.0);
 		
+		est1.getProdutos().addAll(Arrays.asList(prod1,prod2,prod3));
+		est2.getProdutos().addAll(Arrays.asList(prod4,prod5));
+		
+		prod1.getEstabelecimentos().addAll(Arrays.asList(est1));
+		prod2.getEstabelecimentos().addAll(Arrays.asList(est1));
+		prod3.getEstabelecimentos().addAll(Arrays.asList(est1));
+
+		prod4.getEstabelecimentos().addAll(Arrays.asList(est2));
+		prod5.getEstabelecimentos().addAll(Arrays.asList(est2));
+
+		estabelecimentoRepository.save(Arrays.asList(est1,est2));
 		produtoRepository.save(Arrays.asList(prod1,prod2,prod3,prod4,prod5));
 		
 	}

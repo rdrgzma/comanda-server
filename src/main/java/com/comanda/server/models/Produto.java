@@ -1,10 +1,16 @@
 package com.comanda.server.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Produto implements Serializable{
@@ -17,7 +23,11 @@ public class Produto implements Serializable{
 	private String nome;
 	private Double preco;
 	
-//	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name="ESTABELECIMENTO_PRODUTO",
+	joinColumns = @JoinColumn(name="produto_id"),
+	inverseJoinColumns = @JoinColumn(name="estabelecimento_id"))
+	private List<Estabelecimento> estabelecimentos = new ArrayList<>();
 
 	public Produto(Integer id, String nome, Double preco) {
 		super();
@@ -26,15 +36,11 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
-	
-
 	public Produto(String nome, Double preco) {
 	super();
 	this.nome = nome;
 	this.preco = preco;
-}
-
-
+	}
 
 	public Produto() {
 		super();
@@ -64,13 +70,13 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
-//	public List<Estabelecimento> getEstabelecimentos() {
-//		return estabelecimentos;
-//	}
-//
-//	public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
-//		this.estabelecimentos = estabelecimentos;
-//	}
+	public List<Estabelecimento> getEstabelecimentos() {
+		return estabelecimentos;
+	}
+
+	public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
+		this.estabelecimentos = estabelecimentos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -93,9 +99,5 @@ public class Produto implements Serializable{
 			return false;
 		return true;
 	}
-
-	
-
-	
 
 }

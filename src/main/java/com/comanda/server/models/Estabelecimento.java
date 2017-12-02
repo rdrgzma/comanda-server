@@ -1,10 +1,14 @@
 package com.comanda.server.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Estabelecimento implements Serializable{
@@ -16,7 +20,8 @@ public class Estabelecimento implements Serializable{
 	private String nome;
 	private String email;
 	
-//	private List<Produto> produtos = new ArrayList<>();
+	@ManyToMany(mappedBy="estabelecimentos")
+	private List<Produto> produtos = new ArrayList<>();
 	
 
 	public Estabelecimento(Integer id, String nome, String email) {
@@ -55,12 +60,13 @@ public class Estabelecimento implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-//	public List<Produto> getProdutos() {
-//		return produtos;
-//	}
-//	public void setProdutos(List<Produto> produtos) {
-//		this.produtos = produtos;
-//	}
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -81,7 +87,5 @@ public class Estabelecimento implements Serializable{
 			return false;
 		return true;
 	}
-
-	
 	
 }
