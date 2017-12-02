@@ -19,7 +19,7 @@ public class EstabelecimentoResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> buscarPorID(@PathVariable Integer id) {
-		Estabelecimento est = service.buscar(id);
+		Estabelecimento est = service.buscarPorId(id);
 		return ResponseEntity.ok().body(est);
 		
 	}

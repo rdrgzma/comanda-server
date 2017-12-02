@@ -12,7 +12,7 @@ public class EstabelecimentoService {
 	@Autowired
 	private EstabelecimentoRepository estabelecimentoRepository;
 	
-	public Estabelecimento buscar(Integer id) {
+	public Estabelecimento buscarPorId(Integer id) {
 		return estabelecimentoRepository.findOne(id);
 	}
 	
