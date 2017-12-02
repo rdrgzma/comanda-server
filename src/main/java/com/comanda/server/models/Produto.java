@@ -1,9 +1,6 @@
 package com.comanda.server.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,12 +25,22 @@ public class Produto implements Serializable{
 		this.nome = nome;
 		this.preco = preco;
 	}
+	
+	
+
+	public Produto(String nome, Double preco) {
+	super();
+	this.nome = nome;
+	this.preco = preco;
+}
+
+
 
 	public Produto() {
 		super();
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

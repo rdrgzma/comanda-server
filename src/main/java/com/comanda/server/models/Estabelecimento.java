@@ -1,9 +1,6 @@
 package com.comanda.server.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,14 +18,20 @@ public class Estabelecimento implements Serializable{
 	
 //	private List<Produto> produtos = new ArrayList<>();
 	
-	
-	
+
 	public Estabelecimento(Integer id, String nome, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 	}
+	
+	public Estabelecimento(String nome, String email) {
+	super();
+	this.nome = nome;
+	this.email = email;
+	}
+	
 	public Estabelecimento() {
 		super();
 	}
