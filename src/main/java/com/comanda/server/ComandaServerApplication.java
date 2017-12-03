@@ -65,7 +65,13 @@ public class ComandaServerApplication implements CommandLineRunner{
 		
 		est1.getProdutos().addAll(Arrays.asList(prod1,prod2,prod3));
 		est2.getProdutos().addAll(Arrays.asList(prod4,prod5));
+		
 		prod1.getEstabelecimentos().addAll(Arrays.asList(est1));
+		prod2.getEstabelecimentos().addAll(Arrays.asList(est1));
+		prod3.getEstabelecimentos().addAll(Arrays.asList(est1));
+
+		prod4.getEstabelecimentos().addAll(Arrays.asList(est2));
+		prod5.getEstabelecimentos().addAll(Arrays.asList(est2));
 		
 		clienteRepository.save(Arrays.asList(cli1,cli2,cli3));
 		estabelecimentoRepository.save(Arrays.asList(est1,est2));
@@ -80,20 +86,13 @@ public class ComandaServerApplication implements CommandLineRunner{
 		
 		Pedido ped4 = new Pedido(50.0,4, StatusPedido.ENCERRADO,sdf.parse("02/12/2017 20:00"),cli1,est2);
 		Pedido ped5 = new Pedido(23.0,5, StatusPedido.FINALIZADO,new Date(),cli2,est2);
-		
-		prod1.getEstabelecimentos().addAll(Arrays.asList(est1));
-		
-		prod2.getEstabelecimentos().addAll(Arrays.asList(est1));
-		prod3.getEstabelecimentos().addAll(Arrays.asList(est1));
-
-		prod4.getEstabelecimentos().addAll(Arrays.asList(est2));
-		prod5.getEstabelecimentos().addAll(Arrays.asList(est2));
+	
 		
 		pedidoRepository.save(Arrays.asList(ped1,ped2,ped3, ped4,ped5));
 		
 		Item it1 = new Item(prod1,ped1, 2, 2*prod1.getPreco());
-		Item it2 = new Item(prod2,ped1,1,1*prod2.getPreco());
-		Item it3 = new Item(prod3,ped2,5,5*prod3.getPreco());
+		Item it2 = new Item(prod2,ped2,1,1*prod2.getPreco());
+		Item it3 = new Item(prod3,ped3,5,5*prod3.getPreco());
 		
 		Item it4 = new Item(prod4,ped4,3,3*prod4.getPreco());
 		Item it5 = new Item(prod5,ped5,1,1*prod5.getPreco());

@@ -21,5 +21,10 @@ public class EstabelecimentoService {
 	public List<Estabelecimento> buscarTodos(){
 		return estabelecimentoRepository.findAll();
 	}
+	
+	public Estabelecimento salvar(Estabelecimento estabelecimento) {
+		estabelecimento.setId(null);
+		return estabelecimentoRepository.save(estabelecimento);
+	}
 
 }
