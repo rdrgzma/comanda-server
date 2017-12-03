@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.comanda.server.exception.ObjetoNaoEncontradoException;
 import com.comanda.server.models.Produto;
 import com.comanda.server.service.ProdutoService;
 
@@ -21,6 +22,10 @@ public class ProdutoResource {
 	public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
 		
 		Produto prod = produtoservice.buscarPorId(id);
+		if(prod == null) {
+			throw new ObjetoNaoEncontradoException(Produto.class.getName()+" não encontrado Id: "
+					+ id);
+		}
 		 return ResponseEntity.ok().body(prod);
 
 	}
