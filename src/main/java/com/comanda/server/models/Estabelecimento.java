@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Estabelecimento implements Serializable{
@@ -23,10 +23,11 @@ public class Estabelecimento implements Serializable{
 	private String nome;
 	private String email;
 	
-	@JsonManagedReference
+	@JsonBackReference
 	@ManyToMany(mappedBy="estabelecimentos")
 	private List<Produto> produtos = new ArrayList<>();
 	
+	@JsonBackReference
 	@OneToMany(mappedBy="estabelecimento")
 	private List<Pedido> pedidos;
 
