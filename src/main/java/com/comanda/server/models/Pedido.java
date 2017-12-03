@@ -2,6 +2,8 @@ package com.comanda.server.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.comanda.server.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -34,6 +37,10 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="estabelecimento_id")
 	private Estabelecimento estabelecimento;
+	
+	
+	@OneToMany(mappedBy="id.pedido")
+	private Set<Item> itens = new HashSet<>();
 	
 	public Pedido(Integer id, Double total, int mesa, StatusPedido status, Date data) {
 		super();
@@ -122,6 +129,14 @@ public class Pedido implements Serializable{
 
 	public void setEstabelecimento(Estabelecimento estabelecimento) {
 		this.estabelecimento = estabelecimento;
+	}
+
+	public Set<Item> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<Item> itens) {
+		this.itens = itens;
 	}
 
 	@Override
