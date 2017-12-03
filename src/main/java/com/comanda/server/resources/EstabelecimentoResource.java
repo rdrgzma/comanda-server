@@ -1,4 +1,6 @@
-package com.comanda.server.resorces;
+package com.comanda.server.resources;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +28,16 @@ public class EstabelecimentoResource {
 			throw new ObjetoNaoEncontradoException(Estabelecimento.class.getName()+" não encontrado Id: "
 					+ id);
 		}
-		return ResponseEntity.ok().body(est);
-		
+		return ResponseEntity.ok().body(est);	
 	}
-
+	
+	@RequestMapping(value="/todos", method=RequestMethod.GET)
+	public ResponseEntity<?> buscarTodos() {
+		List<Estabelecimento> est = service.buscarTodos();
+		
+		if(est == null) {
+			throw new ObjetoNaoEncontradoException("Estabelecimentos não encontrados");
+		}
+		return ResponseEntity.ok().body(est);	
+	}
 }
