@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -26,6 +27,8 @@ public class Estabelecimento implements Serializable{
 	@ManyToMany(mappedBy="estabelecimentos")
 	private List<Produto> produtos = new ArrayList<>();
 	
+	@OneToMany(mappedBy="estabelecimento")
+	private List<Pedido> pedidos;
 
 	public Estabelecimento(Integer id, String nome, String email) {
 		super();
@@ -70,6 +73,14 @@ public class Estabelecimento implements Serializable{
 		this.produtos = produtos;
 	}
 	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

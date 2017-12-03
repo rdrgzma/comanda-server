@@ -10,36 +10,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.comanda.server.exception.ObjetoNaoEncontradoException;
-import com.comanda.server.models.Produto;
-import com.comanda.server.services.ProdutoService;
+import com.comanda.server.models.Pedido;
+import com.comanda.server.services.PedidoService;
 
 @RestController
-@RequestMapping(value="/produtos")
-public class ProdutoResource {
+@RequestMapping(value="/pedidos")
+public class PedidoResource {
 	
 	@Autowired
-	private ProdutoService produtoService;
+	private PedidoService pedidoService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
+	public ResponseEntity<?> buscarPorID(@PathVariable Integer id) {
+		Pedido ped = pedidoService.buscarPorId(id);
 		
-		Produto prod = produtoService.buscarPorId(id);
-		if(prod == null) {
-			throw new ObjetoNaoEncontradoException(Produto.class.getName()+" não encontrado Id: "
+		if(ped == null) {
+			throw new ObjetoNaoEncontradoException(Pedido.class.getName()+" não encontrado Id: "
 					+ id);
 		}
-		 return ResponseEntity.ok().body(prod);
-
+		return ResponseEntity.ok().body(ped);	
 	}
 	
 	@RequestMapping(value="/todos", method=RequestMethod.GET)
 	public ResponseEntity<?> buscarTodos() {
-		List<Produto> est = produtoService.buscarTodos();
+		List<Pedido> ped = pedidoService.buscarTodos();
 		
-		if(est == null) {
-			throw new ObjetoNaoEncontradoException("Produtos não encontrados");
+		if(ped == null) {
+			throw new ObjetoNaoEncontradoException("Pedidos não encontrados");
 		}
-		return ResponseEntity.ok().body(est);	
+		return ResponseEntity.ok().body(ped);	
 	}
 
 }

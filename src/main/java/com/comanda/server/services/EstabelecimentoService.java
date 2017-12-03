@@ -1,4 +1,4 @@
-package com.comanda.server.service;
+package com.comanda.server.services;
 
 import java.util.List;
 

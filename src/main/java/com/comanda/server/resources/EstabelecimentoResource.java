@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.comanda.server.exception.ObjetoNaoEncontradoException;
 import com.comanda.server.models.Estabelecimento;
-import com.comanda.server.service.EstabelecimentoService;
+import com.comanda.server.services.EstabelecimentoService;
 
 @RestController
 @RequestMapping(value="/estabelecimentos")
