@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.comanda.server.exception.ObjetoNaoEncontradoException;
 import com.comanda.server.models.Cliente;
 import com.comanda.server.repositories.ClienteRepository;
 
@@ -15,13 +16,20 @@ public class ClienteService {
 	ClienteRepository clienteRepository;
 	
 	public Cliente buscarPorID(Integer id) {
-		
-		return clienteRepository.findOne(id);
+		Cliente cli = clienteRepository.findOne(id);
+		if(cli == null) {
+			throw new ObjetoNaoEncontradoException("Clientes não encontrados");
+		}
+		return cli;
 		
 	}
 	
 	public List<Cliente> buscarTodos(){
-		return clienteRepository.findAll();
+		List<Cliente> cli = clienteRepository.findAll();
+		if(cli == null) {
+			throw new ObjetoNaoEncontradoException("Clientes não encontrados");
+		}
+		return cli;
 	}
 
 }

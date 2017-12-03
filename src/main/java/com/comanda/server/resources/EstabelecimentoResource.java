@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.comanda.server.exception.ObjetoNaoEncontradoException;
 import com.comanda.server.models.Estabelecimento;
 import com.comanda.server.services.EstabelecimentoService;
 
@@ -24,23 +23,14 @@ public class EstabelecimentoResource {
 	private EstabelecimentoService estabelecimentoService;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> buscarPorID(@PathVariable Integer id) {
+	public ResponseEntity<Estabelecimento> buscarPorID(@PathVariable Integer id) {
 		Estabelecimento est = estabelecimentoService.buscarPorId(id);
-		
-		if(est == null) {
-			throw new ObjetoNaoEncontradoException(Estabelecimento.class.getName()+" não encontrado Id: "
-					+ id);
-		}
 		return ResponseEntity.ok().body(est);	
 	}
 	
-	@RequestMapping(value="/todos", method=RequestMethod.GET)
-	public ResponseEntity<?> buscarTodos() {
+	@RequestMapping( method=RequestMethod.GET)
+	public ResponseEntity<List<Estabelecimento>> buscarTodos() {
 		List<Estabelecimento> est = estabelecimentoService.buscarTodos();
-		
-		if(est == null) {
-			throw new ObjetoNaoEncontradoException("Estabelecimentos não encontrados");
-		}
 		return ResponseEntity.ok().body(est);	
 	}
 	
@@ -50,4 +40,11 @@ public class EstabelecimentoResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(estabelecimento.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> apagar(@PathVariable Integer id) {
+		estabelecimentoService.apagar(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 }
