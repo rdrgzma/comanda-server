@@ -20,5 +20,10 @@ public class ProdutoService {
 	public List<Produto> buscarTodos(){
 		return produtoRepository.findAll();		
 	}
+	
+	public Produto salvar(Produto produto) {
+		produto.setId(null);
+		return produtoRepository.save(produto);
+	}
 
 }
