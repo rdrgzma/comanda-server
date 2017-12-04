@@ -25,7 +25,7 @@ public class ItemResource {
 		return ResponseEntity.ok().body(it);	
 	}
 	
-	@RequestMapping(value="/todos", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<?> buscarTodos() {
 		List<Item> itens = itemService.buscarTodos();
 		return ResponseEntity.ok().body(itens);	

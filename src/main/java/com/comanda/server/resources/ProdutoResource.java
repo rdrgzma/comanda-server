@@ -29,7 +29,7 @@ public class ProdutoResource {
 
 	}
 	
-	@RequestMapping(value="/todos", method=RequestMethod.GET)
+	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<?> buscarTodos() {
 		List<Produto> est = produtoService.buscarTodos();
 		return ResponseEntity.ok().body(est);	
