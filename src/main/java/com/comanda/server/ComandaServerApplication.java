@@ -80,22 +80,22 @@ public class ComandaServerApplication implements CommandLineRunner{
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		
-		Pedido ped1 = new Pedido(100.0, 1, StatusPedido.ABERTO, sdf.parse("02/12/2017 22:22"), cli1, est1);
-		Pedido ped2 = new Pedido(10.0,2, StatusPedido.ATENDIMENTO,sdf.parse("02/12/2017 22:23"),cli1,est1);
-		Pedido ped3 = new Pedido(45.50,3, StatusPedido.ATENDIMENTO,sdf.parse("02/12/2017 21:00"),cli2,est1);
+		Pedido ped1 = new Pedido(1, StatusPedido.ABERTO, sdf.parse("02/12/2017 22:22"), cli1, est1);
+		Pedido ped2 = new Pedido(2, StatusPedido.ATENDIMENTO,sdf.parse("02/12/2017 22:23"),cli1,est1);
+		Pedido ped3 = new Pedido(3, StatusPedido.ATENDIMENTO,sdf.parse("02/12/2017 21:00"),cli2,est1);
 		
-		Pedido ped4 = new Pedido(50.0,4, StatusPedido.ENCERRADO,sdf.parse("02/12/2017 20:00"),cli1,est2);
-		Pedido ped5 = new Pedido(23.0,5, StatusPedido.FINALIZADO,new Date(),cli2,est2);
+		Pedido ped4 = new Pedido(4, StatusPedido.ENCERRADO,sdf.parse("02/12/2017 20:00"),cli1,est2);
+		Pedido ped5 = new Pedido(5, StatusPedido.FINALIZADO,new Date(),cli2,est2);
 	
 		
-		pedidoRepository.save(Arrays.asList(ped1,ped2,ped3, ped4,ped5));
 		
-		Item it1 = new Item(prod1,ped1, 2, 2*prod1.getPreco());
-		Item it2 = new Item(prod2,ped2,1,1*prod2.getPreco());
-		Item it3 = new Item(prod3,ped3,5,5*prod3.getPreco());
 		
-		Item it4 = new Item(prod4,ped4,3,3*prod4.getPreco());
-		Item it5 = new Item(prod5,ped5,1,1*prod5.getPreco());
+		Item it1 = new Item(prod1,ped1,2);
+		Item it2 = new Item(prod2,ped1,1);
+		Item it3 = new Item(prod3,ped2,5);
+		
+		Item it4 = new Item(prod4,ped4,3);
+		Item it5 = new Item(prod5,ped5,1);
 		
 		
 		
@@ -109,6 +109,8 @@ public class ComandaServerApplication implements CommandLineRunner{
 		prod3.getItens().addAll(Arrays.asList(it3));
 		prod4.getItens().addAll(Arrays.asList(it4));
 		prod5.getItens().addAll(Arrays.asList(it5));
+		
+		pedidoRepository.save(Arrays.asList(ped1,ped2,ped3, ped4,ped5));
 		
 		itemRepository.save(Arrays.asList(it1,it2,it3,it4,it5));
 		

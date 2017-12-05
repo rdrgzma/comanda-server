@@ -2,75 +2,102 @@ package com.comanda.server.models;
 
 import java.io.Serializable;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Item implements Serializable{
+public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@JsonIgnore
-	@EmbeddedId
-	private ItemPK id = new ItemPK();
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	private Integer quantidade;
+	private double precoProduto;
 
-	private int quantidade;
-	private Double totalItem;
+	@ManyToOne
+	@JoinColumn(name="produto_id")
+	private Produto produto;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="pedido_id")
+	private Pedido pedido;
+	
+
 	
 	public Item() {
 		super();
 	}
 
-	public Item(Produto produto, Pedido pedido, int quantidade, Double totalItem) {
+	public Item(Produto produto, Pedido pedido, int quantidade) {
 		super();
-		id.setProduto(produto);
-		id.setPedido(pedido);
 		this.quantidade = quantidade;
-		this.totalItem = totalItem;
+		this.produto=produto;
+		this.pedido=pedido;
+		this.precoProduto=produto.getPreco();
 	}
+	 public double getValorTotal() {
+		 return produto.getPreco()*quantidade;
+	 }
 	
-	@JsonIgnore
-	public Pedido getPedido() {
-		return id.getPedido();
-	}
-	
-	
-	public Produto getProduto() {
-		return id.getProduto();
-	}
-	
-	public ItemPK getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(ItemPK id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getQuantidade() {
+
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
+	
 
-	public Double getTotalItem() {
-		return totalItem;
+	public double getPrecoProduto() {
+		return precoProduto;
 	}
 
-	public void setTotalItem(Double totalItem) {
-		this.totalItem = totalItem;
+	public void setPrecoProduto(double precoProduto) {
+		this.precoProduto = precoProduto;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+
+	public void setPedidos(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -88,9 +115,5 @@ public class Item implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
+
 }

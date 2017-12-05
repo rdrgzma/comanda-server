@@ -31,7 +31,7 @@ public class PedidoDTO implements Serializable{
 		this.mesa = pedido.getMesa();
 		this.itens = pedido.getItens();
 		this.status = pedido.getStatus().getStatus();
-		this.total = pedido.getTotal();
+		this.total = pedido.getValorTotal();
 	}
 
 	public Integer getId() {

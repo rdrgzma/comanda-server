@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 
 import com.comanda.server.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido implements Serializable{
@@ -24,39 +23,33 @@ public class Pedido implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private Integer id;
-	private Double total;
 	private int mesa;
 	private String status;
 	
 	@JsonFormat(pattern="dd/MM/yyyy hh:mm")
 	private Date data;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
 	
-	
 	@ManyToOne
 	@JoinColumn(name="estabelecimento_id")
 	private Estabelecimento estabelecimento;
-	
-	
-	@OneToMany(mappedBy="id.pedido")
+
+	@OneToMany(mappedBy="pedido")
 	private Set<Item> itens = new HashSet<>();
 	
-	public Pedido(Integer id, Double total, int mesa, StatusPedido status, Date data) {
+	public Pedido(Integer id, int mesa, StatusPedido status, Date data) {
 		super();
 		this.id = id;
-		this.total = total;
 		this.mesa = mesa;
 		this.status = status.getStatus();
 		this.data = data;
 	}
 	
-	public Pedido( Double total, int mesa, StatusPedido status, Date data) {
+	public Pedido(  int mesa, StatusPedido status, Date data) {
 		super();
-		this.total = total;
 		this.mesa = mesa;
 		this.status = status.getStatus();
 		this.data = data;
@@ -64,14 +57,15 @@ public class Pedido implements Serializable{
 	
 	
 
-	public Pedido(Double total, int mesa, StatusPedido status, Date data, Cliente cliente, Estabelecimento estabelecimento) {
+	public Pedido(int mesa, StatusPedido status, Date data, Cliente cliente, Estabelecimento estabelecimento) {
 		super();
-		this.total = total;
 		this.mesa = mesa;
 		this.status = status.getStatus();
 		this.data = data;
 		this.cliente = cliente;
 		this.estabelecimento = estabelecimento;
+		
+		
 	}
 
 	public Pedido() {
@@ -86,13 +80,14 @@ public class Pedido implements Serializable{
 		this.id = id;
 	}
 
-	public Double getTotal() {
+	public Double getValorTotal() {
+		double total = 0.0;
+		 for(Item it: itens) {
+			 total += it.getValorTotal();
+		 }	
 		return total;
 	}
-
-	public void setTotal(Double total) {
-		this.total = total;
-	}
+	
 
 	public int getMesa() {
 		return mesa;
