@@ -42,9 +42,8 @@ public class PedidoService {
 	}
 
 	public Pedido salvar(Pedido pedido) {
-		pedido.setId(null);
+		//pedido.setId(null);
 		pedido.setData(new Date());
-		//pedido.setStatus(StatusPedido.ABERTO);
 		pedidoRepository.save(pedido);
 		for (Item it : pedido.getItens() ) {
 			it.setPrecoProduto(produtoRepository.findOne(it.getProduto().getId()).getPreco());
