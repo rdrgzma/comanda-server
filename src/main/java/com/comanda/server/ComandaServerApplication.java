@@ -87,15 +87,17 @@ public class ComandaServerApplication implements CommandLineRunner{
 		Pedido ped4 = new Pedido(4, StatusPedido.ENCERRADO,sdf.parse("02/12/2017 20:00"),cli1,est2);
 		Pedido ped5 = new Pedido(5, StatusPedido.FINALIZADO,new Date(),cli2,est2);
 	
-		
+		Pedido ped6 = new Pedido(100, StatusPedido.ATENDIMENTO,sdf.parse("02/12/2017 21:00"),cli2,est1);
 		
 		
 		Item it1 = new Item(prod1,ped1,2);
 		Item it2 = new Item(prod2,ped1,1);
-		Item it3 = new Item(prod3,ped2,5);
+		Item it3 = new Item(prod3,ped3,5);
 		
 		Item it4 = new Item(prod4,ped4,3);
 		Item it5 = new Item(prod5,ped5,1);
+		
+		Item it6 = new Item(prod1,ped6,10);
 		
 		
 		
@@ -103,16 +105,17 @@ public class ComandaServerApplication implements CommandLineRunner{
 		ped2.getItens().addAll(Arrays.asList(it3));
 		ped4.getItens().addAll(Arrays.asList(it4));
 		ped5.getItens().addAll(Arrays.asList(it5));
+		ped6.getItens().addAll(Arrays.asList(it6));
 	
-		prod1.getItens().addAll(Arrays.asList(it1));
+		prod1.getItens().addAll(Arrays.asList(it1,it6));
 		prod2.getItens().addAll(Arrays.asList(it2));
 		prod3.getItens().addAll(Arrays.asList(it3));
 		prod4.getItens().addAll(Arrays.asList(it4));
 		prod5.getItens().addAll(Arrays.asList(it5));
 		
-		pedidoRepository.save(Arrays.asList(ped1,ped2,ped3, ped4,ped5));
+		pedidoRepository.save(Arrays.asList(ped1,ped2,ped3, ped4,ped5,ped6));
 		
-		itemRepository.save(Arrays.asList(it1,it2,it3,it4,it5));
+		itemRepository.save(Arrays.asList(it1,it2,it3,it4,it5,it6));
 		
 
 		

@@ -1,13 +1,15 @@
 package com.comanda.server.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.comanda.server.exception.ObjetoNaoEncontradoException;
-
+import com.comanda.server.models.Item;
 import com.comanda.server.models.Pedido;
+import com.comanda.server.repositories.ItemRepository;
 import com.comanda.server.repositories.PedidoRepository;
 import com.comanda.server.repositories.ProdutoRepository;
 
@@ -19,6 +21,9 @@ public class PedidoService {
 	
 	@Autowired
 	ProdutoRepository produtoRepository;
+	
+	@Autowired
+	ItemRepository itemRepository;
 
 	public Pedido buscarPorId(Integer id) {
 		Pedido ped = pedidoRepository.findOne(id);
@@ -36,17 +41,20 @@ public class PedidoService {
 		return peds;
 	}
 
-//	public Pedido salvar(Pedido ped) {
-//		ped.setId(null);
-//		ped.setData(new Date());
-//		ped.setStatus(StatusPedido.ABERTO);
-//		pedidoRepository.save(ped);
-//		for(Item it: ped.getItens()) {
-//			it.setTotalItem(produtoRepository.findOne(it.getProduto().getId()).getPreco());
-//			it.setP
-//		}
-//		
-//		
-//	}
+	public Pedido salvar(Pedido pedido) {
+		pedido.setId(null);
+		pedido.setData(new Date());
+		//pedido.setStatus(StatusPedido.ABERTO);
+		pedidoRepository.save(pedido);
+		for (Item it : pedido.getItens() ) {
+			it.setPrecoProduto(produtoRepository.findOne(it.getProduto().getId()).getPreco());
+			it.setPedido(pedido);
+		}
+		
+		itemRepository.save(pedido.getItens());
+		return pedido;
+	}
+
+
 
 }

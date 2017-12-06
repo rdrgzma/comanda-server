@@ -75,10 +75,6 @@ public class Item implements Serializable {
 		this.precoProduto = precoProduto;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
 	public Produto getProduto() {
 		return produto;
 	}
@@ -94,7 +90,7 @@ public class Item implements Serializable {
 	}
 
 
-	public void setPedidos(Pedido pedido) {
+	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
 
