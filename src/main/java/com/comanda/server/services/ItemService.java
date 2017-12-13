@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.comanda.server.enums.StatusItem;
 import com.comanda.server.exception.ObjetoNaoEncontradoException;
 import com.comanda.server.models.Item;
 import com.comanda.server.models.Pedido;
@@ -32,5 +33,20 @@ public class ItemService {
 		}
 		return itens;
 	}
+	
+	public Item salvar(Item item) {
+		return itemRepository.save(item);
+	}
+	
+	public Item atenderItem(Item item) {
+		item.setStatusItem(StatusItem.ATENDIMENTO);
+		return item;
+	}
+	
+	public Item cancelarItem(Item item) {
+		item.setStatusItem(StatusItem.CANCELADO);
+		return item;
+	}
+	
 
 }

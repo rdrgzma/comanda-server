@@ -7,7 +7,7 @@ import java.util.Set;
 import com.comanda.server.models.Item;
 import com.comanda.server.models.Pedido;
 
-public class PedidoDTO implements Serializable{
+public class ItemDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
@@ -20,11 +20,11 @@ public class PedidoDTO implements Serializable{
 	private boolean isCancelado;
 
 	
-	public PedidoDTO() {
+	public ItemDTO() {
 		
 	}
 
-	public PedidoDTO(Pedido pedido) {
+	public ItemDTO(Pedido pedido) {
 		super();
 		this.id = pedido.getId();
 		this.estabelecimento_id = pedido.getEstabelecimento().getId();

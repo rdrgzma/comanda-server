@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.comanda.server.enums.StatusItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -20,6 +21,7 @@ public class Item implements Serializable {
 	private Integer id;
 	private Integer quantidade;
 	private double precoProduto;
+	private String statusItem;
 
 	@ManyToOne
 	@JoinColumn(name="produto_id")
@@ -36,12 +38,13 @@ public class Item implements Serializable {
 		super();
 	}
 
-	public Item(Produto produto, Pedido pedido, int quantidade) {
+	public Item(Produto produto, Pedido pedido, int quantidade, StatusItem status) {
 		super();
 		this.quantidade = quantidade;
 		this.produto=produto;
 		this.pedido=pedido;
 		this.precoProduto=produto.getPreco();
+		this.statusItem = status.getStatus();
 	}
 	 public double getValorTotal() {
 		 return produto.getPreco()*quantidade;
@@ -95,6 +98,14 @@ public class Item implements Serializable {
 	}
 
 
+	public StatusItem getStatusItem() {
+		return StatusItem.toEnumString(statusItem);
+	}
+
+	public void setStatusItem(StatusItem status) {
+		this.statusItem = status.getStatus();
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -111,5 +122,4 @@ public class Item implements Serializable {
 			return false;
 		return true;
 	}
-
 }
